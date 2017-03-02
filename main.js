@@ -8,14 +8,13 @@ console.log(deck)
 // Testing drawing
 let hand = new Hand()
 hand.cards.push("hi")
-console.log(hand)
+console.log(hand.cards)
 
 hand.draw(deck)
 
-console.log(hand)
+console.log(hand.cards)
 
 // Testing discard
-deck.discard(["d", "e"])
 console.log(deck.discardPile)
 deck.trash()
 console.log(deck.deck)

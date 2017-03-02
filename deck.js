@@ -1,19 +1,3 @@
-Array.prototype.remove = function(element, isIndex) { // Utility
-    if (isIndex) {
-        if (element >= 0) {
-            return this.splice(element, 1)[0] // [0] to return the element not the array
-        }
-    } else {
-        if (this.indexOf(element) >= 0) {
-            return this.splice(element, 1)[0] // [0] to return the element not the array
-        }
-    }
-}
-
-function rand(min, max) { // Utility
-    return Math.random() * (max - min) + min
-}
-
 class Deck {
     constructor() {
         this.deck = ["a", "b", "c"]
@@ -27,14 +11,17 @@ class Deck {
             this.deck[j] = temp
         }
     }
-    draw(times) {
+    draw(times = 1) {
         let drawnCards = []
-        if (times === undefined) { // If times is undefined just draw one card
+        for(let i = 0; i < times; i++) {
+            drawnCards.push(this.deck.shift())
+        }
+        return drawnCards
+    }
+    drawRandom(times = 1) {
+        let drawnCards = []
+        for (let i = 0; i < times; i++) {
             drawnCards.push(this.deck.remove(rand(0, this.deck.length), true))
-        } else { // If times is defiend draw times cards
-            for (let i = 0; i < times; i++) {
-                drawnCards.push(this.deck.remove(rand(0, this.deck.length), true))
-            }
         }
         return drawnCards
     }
