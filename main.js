@@ -7,6 +7,20 @@ console.log(deck)
 
 // Testing drawing
 let hand = new Hand()
+hand.cards.push("hi")
 console.log(hand)
 
 hand.draw(deck)
+
+console.log(hand)
+
+// Testing discard
+deck.discard(["d", "e"])
+console.log(deck.discardPile)
+deck.trash()
+console.log(deck.deck)
+console.log(deck.discardPile)
+console.log(hand.cards)
+hand.discard(deck, ["hi"])
+console.log(hand.cards)
+console.log(deck.discardPile)
