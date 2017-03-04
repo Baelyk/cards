@@ -2,6 +2,12 @@ class Game {
     constructor() {
         this.decks = []
         this.hands = []
+        this.primaryDeck = false
+    }
+    static standard () {
+        let game = new Game ()
+        game.newDeck("standard")
+        return game
     }
     static add (thing, game) {
         if(thing instanceof Deck) {
@@ -12,7 +18,7 @@ class Game {
     }
     static create (thing, game) {
         if(thing == "deck") {
-            thing = new Deck ()
+            thing = new Deck (arguments[2])
         } else if(thing == "hand") {
             thing = new Hand ()
         } else {
@@ -21,21 +27,135 @@ class Game {
         Game.add(thing, game)
         return thing
     }
-    newDeck () {
-        return Game.create("deck", this)
+    newDeck (deck) {
+        if(!this.primaryDeck) {
+            this.primaryDeck = Game.create("deck", this, deck)
+            return this.primaryDeck
+        } else {
+            return Game.create("deck", this)
+        }
+    }
+    newStandardDeck () {
+        return this.newDeck("standard")
     }
     newHand () {
         return Game.create("hand", this)
     }
+    makePrimaryDeck (deck) {
+        this.primaryDeck = primaryDeck
+    }
+}
+
+class Card { // later
+    constructor(name, parent = false, other = {
+        discarded: false,
+        removed: false,
+        suit: false,
+        number: false
+    }) {
+        // this.where = where // Deck, Hand, or Discard
+        if (name === undefined) throw "Error creating new Card instance: name undefined."
+        this.name = name // The display name of the card
+            // this.id = id // The unique id of the card (not sure if this will be used)
+        this.parent = parent // its parent entity, e.g. the actual Deck its in (the intstance of it)
+        this.discarded = other.discarded ? other.discarded : false
+        this.removed = other.removed ? other.removed : false
+        this.suit = other.suit ? other.suit : false
+        this.number = other.number ? other.number : false
+    }
+    move(newParent, why = "drawn") { // newParent is the new parent of the card, why is why it was moved (e.g. "drawn", "discarded", or "removed")
+        this.parent = newParent
+        if (why == "discarded") {
+            this.discarded = true
+        } else if (why == "removed") {
+            this.removed = true
+        } else { // if drawn (why == "drawn")
+            this.discarded = false
+            this.removed = false
+        }
+    }
 }
 
 class Deck {
-    constructor() {
-        this.deck = [new Card("A", this), new Card("B", this), new Card("C", this)]
+    constructor(type) {
+        this.type = type
+        this.deck = []
+        if(type == "custom") {
+            this.deck = arguments[1]
+        } else if(type == "standard") {
+            this.deck = Deck.standard(this)
+        }
         this.inPlay = []
         this.discardPile = []
         this.removedFromPlay = []
         this.amountOfCards = this.deck.length
+    }
+    static standard (that) {
+        let deck = []
+        for(let i = 0; i < 52; i++) {
+            let name, suit, num
+            if(i >= 0 && i < 13) {
+                suit = "Spades"
+                if(i === 0) {
+                    num = "Ace"
+                } else if(i == 10) {
+                    num = "Jack"
+                } else if(i == 11) {
+                    num = "Queen"
+                } else if(i == 12) {
+                    num = "King"
+                } else {
+                    num = i + 1
+                }
+            } else if(i >= 13 && i < 26) {
+                suit = "Hearts"
+                if(i - 13 === 0) {
+                    num = "Ace"
+                } else if(i - 13 == 10) {
+                    num = "Jack"
+                } else if(i - 13 == 11) {
+                    num = "Queen"
+                } else if(i - 13 == 12) {
+                    num = "King"
+                } else {
+                    num = i - 12
+                }
+            } else if(i >= 26 && i < 39) {
+                suit = "Diamonds"
+                if(i - 26 === 0) {
+                    num = "Ace"
+                } else if(i - 26 == 10) {
+                    num = "Jack"
+                } else if(i - 26 == 11) {
+                    num = "Queen"
+                } else if(i - 26 == 12) {
+                    num = "King"
+                } else {
+                    num = i - 25
+                }
+            } else if(i >= 39 && i < 52) {
+                suit = "Clubs"
+                if(i - 39 === 0) {
+                    num = "Ace"
+                } else if(i - 39 == 10) {
+                    num = "Jack"
+                } else if(i - 39 == 11) {
+                    num = "Queen"
+                } else if(i - 39 == 12) {
+                    num = "King"
+                } else {
+                    num = i - 38
+                }
+            } else {
+                suit = "Errors"
+            }
+            name = `${num} of ${suit}`
+            num = typeof num == "string" ? num.charAt(0) : num
+            // suit = "&" + suit.toLowerCase() + ";"
+            let card = new Card(name, that, {suit: suit, number: num})
+            deck.push(card)
+        }
+        return deck
     }
     shuffle() {
         for (let i = this.deck.length - 1; i > 0; i--) {
@@ -126,30 +246,7 @@ class Hand {
         })
         deck.remove(cards)
     }
-}
-
-class Card { // later
-    constructor(name, parent = false, other = {
-        discarded: false,
-        removed: false
-    }) {
-        // this.where = where // Deck, Hand, or Discard
-        if (name === undefined) throw "Error creating new Card instance: name undefined."
-        this.name = name // The display name of the card
-            // this.id = id // The unique id of the card (not sure if this will be used)
-        this.parent = parent // its parent entity, e.g. the actual Deck its in (the intstance of it)
-        this.discarded = other.discarded
-        this.removed = other.removed
-    }
-    move(newParent, why = "drawn") { // newParent is the new parent of the card, why is why it was moved (e.g. "drawn", "discarded", or "removed")
-        this.parent = newParent
-        if (why == "discarded") {
-            this.discarded = true
-        } else if (why == "removed") {
-            this.removed = true
-        } else { // if drawn (why == "drawn")
-            this.discarded = false
-            this.removed = false
-        }
+    fold(deck) {
+        this.discard(deck, this.cards)
     }
 }
