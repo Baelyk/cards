@@ -14,12 +14,30 @@ hand.draw(deck)
 
 console.log(hand.cards)
 
-// Testing discard
+/* // Testing discard
 console.log(deck.discardPile)
 deck.trash()
 console.log(deck.deck)
 console.log(deck.discardPile)
 console.log(hand.cards)
-hand.discard(deck, ["hi"])
+hand.discard(deck, [new Card ("Hi", hand)])
 console.log(hand.cards)
-console.log(deck.discardPile)
+console.log(deck.discardPile) */
+
+/* // Testing remove
+console.log(deck.removedFromPlay)
+deck.shred()
+console.log(deck.deck)
+console.log(deck.removedFromPlay)
+console.log(hand.cards)
+hand.removeFromPlay(deck, [new Card ("Hi", hand)])
+console.log(hand.cards)
+console.log(deck.removedFromPlay) */
+
+// Testing in play
+
+console.log(deck.inPlay)
+
+// Testing Card
+
+let testing = new Card ("hi")

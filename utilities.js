@@ -1,4 +1,4 @@
-Array.prototype.remove = function(element, isIndex) { // Utility
+Array.prototype.remove = function(element, isIndex = false) { // Utility
     if (isIndex) {
         if (element >= 0) {
             return this.splice(element, 1)[0] // [0] to return the element not the array
