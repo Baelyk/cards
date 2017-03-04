@@ -1,3 +1,34 @@
+class Game {
+    constructor() {
+        this.decks = []
+        this.hands = []
+    }
+    static add (thing, game) {
+        if(thing instanceof Deck) {
+            game.decks.push(thing)
+        } else if (thing instanceof Hand) {
+            game.hands.push(thing)
+        }
+    }
+    static create (thing, game) {
+        if(thing == "deck") {
+            thing = new Deck ()
+        } else if(thing == "hand") {
+            thing = new Hand ()
+        } else {
+            thing = null
+        }
+        Game.add(thing, game)
+        return thing
+    }
+    newDeck () {
+        return Game.create("deck", this)
+    }
+    newHand () {
+        return Game.create("hand", this)
+    }
+}
+
 class Deck {
     constructor() {
         this.deck = [new Card("A", this), new Card("B", this), new Card("C", this)]

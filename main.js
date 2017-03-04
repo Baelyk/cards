@@ -1,4 +1,8 @@
-let deck = new Deck()
+let game = new Game()
+let deck = game.newDeck()
+let hand = game.newHand()
+
+console.log(game)
 
 // Testing shuffle
 console.log(deck)
@@ -6,7 +10,7 @@ deck.shuffle()
 console.log(deck)
 
 // Testing drawing
-let hand = new Hand()
+
 hand.cards.push("hi")
 console.log(hand.cards)
 
