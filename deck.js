@@ -165,6 +165,16 @@ class Deck {
             this.deck[j] = temp
         }
     }
+    shuffleIn(cards = false) {
+        if(!cards) {
+            this.deck = this.deck.concat(this.discardPile)
+        } else if(Array.isArray(cards)) {
+            this.deck = this.deck.concat(cards)
+        } else {
+            this.deck.push(cards)
+        }
+        this.shuffle()
+    }
     draw(times = 1, drawingToHand = true) {
         let drawnCards = []
         for (let i = 0; i < times; i++) {
@@ -228,8 +238,18 @@ class Hand {
     static remove(card, that) {
         that.cards.remove(card) // we want the instance of Hand's cards, not the class of Hand's cards, hence "that"
     }
-    discard(deck, cards) {
+    static randChoose(that, times = 1) {
+        let chosenCards = []
+        for (let i = 0; i < times; i++) {
+            chosenCards.push(that.cards.shift())
+        }
+        return chosenCards
+    }
+    discard(deck, cards = 1) {
         let that = this // forEaches don't play well with this apparently
+        if(typeof cards == "number") {
+            cards = Hand.randChoose(this, cards)
+        }
         cards.forEach(function(card) {
             console.log(that)
             Hand.remove(card, that)

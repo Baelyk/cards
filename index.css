@@ -1,0 +1,11 @@
+.hand {
+    width: 100%;
+}
+.card {
+    display: inline-block;
+    border: 1pt solid black;
+    width: 100pt;
+    padding: 5pt;
+    margin: 1pt;
+    text-align: center;
+}
