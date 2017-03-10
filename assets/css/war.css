@@ -1,0 +1,79 @@
+body {
+    font-family: Georgia, serif;
+    height: 100%;
+}
+
+.header {
+    text-align: center;
+}
+
+.game {
+    height: 100%;
+}
+
+.player, .table {
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1pt solid black;
+    width: 33%;
+    margin: 0;
+    padding: 1%;
+}
+
+.player h2, .table h2 {
+    text-align: center;
+}
+
+.player .info, .cards {
+    border-radius: 3pt;
+    background-color: #efefef;
+    padding: 1pt 5pt;
+    margin: 5pt 0;
+}
+
+.table {
+    margin: 0 0.1%;
+    vertical-align: top;
+}
+
+.card {
+    cursor: default;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    background-color: white;
+    border: 1pt solid black;
+    border-radius: 8pt;
+    height: 160pt;
+    width: 100pt;
+    margin: 1pt;
+}
+
+.card.back {
+    background-color: #e1e1e1;
+}
+
+.card.back > span {
+    display: none;
+}
+
+.card .number {
+    padding: 8pt;
+    font-size: 30pt;
+}
+
+.card .suit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100pt;
+}
+
+.red {
+    color: red;
+}
+
+#human-deck {
+    cursor: pointer;
+}

@@ -3,6 +3,8 @@ class Game {
         this.decks = []
         this.hands = []
         this.primaryDeck = false
+        this.tables = []
+        this.primaryTable = false
     }
     static standard () {
         let game = new Game ()
@@ -14,6 +16,8 @@ class Game {
             game.decks.push(thing)
         } else if (thing instanceof Hand) {
             game.hands.push(thing)
+        } else if (thing instanceof Table) {
+            game.tables.push(thing)
         }
     }
     static create (thing, game) {
@@ -21,6 +25,8 @@ class Game {
             thing = new Deck (arguments[2])
         } else if(thing == "hand") {
             thing = new Hand ()
+        } else if(thing == "table") {
+            thing = new Table()
         } else {
             thing = null
         }
@@ -38,11 +44,27 @@ class Game {
     newStandardDeck () {
         return this.newDeck("standard")
     }
+    makePrimaryDeck (deck) {
+        this.primaryDeck = primaryDeck
+    }
     newHand () {
         return Game.create("hand", this)
     }
-    makePrimaryDeck (deck) {
-        this.primaryDeck = primaryDeck
+    newTable () {
+        if(!this.primaryTable) {
+            this.primaryTable = Game.create("table", this)
+            return this.primaryTable
+        } else {
+            return Game.create("table", this)
+        }
+    }
+    over () {
+        this.decks = null
+        this.hands = null
+        this.tables = null
+        this.primaryDeck = null
+        this.primaryTable = null
+        return null
     }
 }
 
@@ -238,7 +260,7 @@ class Hand {
     static remove(card, that) {
         that.cards.remove(card) // we want the instance of Hand's cards, not the class of Hand's cards, hence "that"
     }
-    static randChoose(that, times = 1) {
+    static chooseFirst(that, times = 1) {
         let chosenCards = []
         for (let i = 0; i < times; i++) {
             chosenCards.push(that.cards.shift())
@@ -248,10 +270,9 @@ class Hand {
     discard(deck, cards = 1) {
         let that = this // forEaches don't play well with this apparently
         if(typeof cards == "number") {
-            cards = Hand.randChoose(this, cards)
+            cards = Hand.chooseFirst(this, cards)
         }
         cards.forEach(function(card) {
-            console.log(that)
             Hand.remove(card, that)
             card.move(deck, "discarded")
         })
@@ -268,5 +289,33 @@ class Hand {
     }
     fold(deck) {
         this.discard(deck, this.cards)
+    }
+    play(to, cards = 1) {
+        let that = this
+        if(typeof cards == "number") {
+            cards = Hand.chooseFirst(this, cards)
+        }
+        cards.forEach(function(card) {
+            Hand.remove(card, that)
+            card.move(to, "played")
+        })
+        to.getPlayedTo(cards)
+        return cards
+    }
+    recieveCards(cards) {
+        this.cards = this.cards.concat(cards)
+    }
+}
+
+class Table {
+    constructor () {
+        this.cards = []
+    }
+    getPlayedTo (cards) {
+        this.cards = this.cards.concat(cards)
+    }
+    giveCards (to) {
+        to.recieveCards(this.cards)
+        this.cards = []
     }
 }

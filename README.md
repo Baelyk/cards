@@ -6,6 +6,10 @@ A javascript library for creating card games
 - ~~Add a Card class - postponed~~ (why needed?)
 - ~~Remove cards from the "game"~~
 - ~~Drawing moves cards to "in play"~~
+- Implement Card.move for all the various functions that move cards around
+    - Also discard
+    - Also remove
+- 
 
 --------------------------------------------------------------------------------
 
