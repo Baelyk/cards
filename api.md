@@ -4,11 +4,11 @@
 
 ### Properties
 
-- `decks` [Array of [`Deck` instances]] - an array of all the `Deck` instances belonging to the game.
-- `hands` [Array of [`Hand` instances]] - an array of all the `Hand` instances belonging to the game.
-- `primaryDeck` [`Deck` instance] - the primary `Deck` instance.
-- `tables` [Array of [`Table` instances]] - an array of all the `Table` instances belonging to the game.
-- `primaryTable` [`Table` instance] - the primary `Table` instance.
+- `decks` [`Array of [Deck instances]`] - an array of all the `Deck` instances belonging to the game.
+- `hands` [`Array of [Hand instances]`] - an array of all the `Hand` instances belonging to the game.
+- `primaryDeck` [`Deck instance`] - the primary `Deck` instance.
+- `tables` [`Array of [Table instances]`] - an array of all the `Table` instances belonging to the game.
+- `primaryTable` [`Table instance`] - the primary `Table` instance.
 
 ### Game.constructor()
 
@@ -58,8 +58,8 @@ Add a `Deck`, `Hand`, or `Table` instance to a game.
 
 **Parameters**
 
-- `thing` [`Deck`, `Hand`, or `Table` instance]
-- `game` [`Game` instance] - The `Game` instance the thing should be added too.
+- `thing` [`Deck`, `Hand`, or `Table instance`]
+- `game` [`Game instance`] - The `Game` instance the thing should be added too.
 
 **Returns**
 
@@ -73,19 +73,19 @@ Game.add(new Deck, game)
 
 ### Game.create()
 
-Create and add a `Deck`, `Hand`, or `Table` to a game.
+Create and add a `Deck`, `Hand`, or `Table instance` to a game.
 
 `Game.create(thing, game[, constructor arguments ...])`
 
 **Parameters**
 
 - `thing` [`String`] - The type of thing to be added. Either `deck`, `hand`, or `table`.
-- `game` [`Game` instance] - The `Game` instance the thing should be added too.
+- `game` [`Game instance`] - The `Game` instance the thing should be added too.
 - `constructor arguments` - Arguments that you want to pass to the constructor of the instance to be made.
 
 **Returns**
 
-- `thing` [`Deck`, `Hand`, or `Table` instance] - The thing that was added to the game.
+- `thing` [`Deck`, `Hand`, or `Table instance`] - The thing that was added to the game.
 
 **Examples**
 
@@ -123,7 +123,7 @@ None.
 
 **Returns**
 
-- deck [`Deck` instance] - The `Deck` instance that was created and added to the game.
+- deck [`Deck instance`] - The `Deck` instance that was created and added to the game.
 
 **Examples**
 
@@ -153,7 +153,7 @@ game.makePrimaryDeck(new Deck("standard"))
 
 ### game.newHand()
 
-Create and add a new `Hand` instance to the `Game` instance.
+Create and add a new `Hand` instance to the `Game instance`.
 
 `game.newHand()`
 
@@ -163,7 +163,7 @@ None.
 
 **Returns**
 
-- `hand` (`Hand instance`) - The hand created and added to the Game.
+- `hand` (`Hand instance`) - The hand created and added to the game.
 
 **Examples**
 
@@ -173,7 +173,7 @@ let hand = game.newHand()
 
 ### game.newTable()
 
-Create and add a new Table instance to the Game.
+Create and add a new `Table instance` to the game.
 
 `game.newTable()`
 
@@ -183,7 +183,7 @@ None.
 
 **Returns**
 
-- `table` (`Table instance`) - The table created and added to the Game.
+- `table` (`Table instance`) - The table created and added to the game.
 
 **Examples**
 
@@ -193,7 +193,7 @@ let table = game.newTable()
 
 ### game.over()
 
-End the game. Makes all of the properties of the Game null.
+End the game. Makes all of the properties of the game null.
 
 `game.over()`
 
@@ -216,7 +216,7 @@ game = game.over()
 ### Properties
 
 - `name` [`String`] - the name of the card.
-- `parent` [`Deck`, `Hand`, or `Table` instane] - the `Deck`, `Hand`, or `Table` instance that the card is in.
+- `parent` [`Deck`, `Hand`, or `Table instane`] - the `Deck`, `Hand`, or `Table` instance that the card is in.
 - `discarded` [`Boolean`] - whether the card is discarded.
 - `removed` [`Boolean`] - whether the card is removed from play.
 - `suit` [`String`, `Number`, `Boolean`] - the suit of the card, it defaults to `false`.
@@ -237,9 +237,9 @@ new Card(name[, parent = false[, other = {
 
 **Parameters**
 
-- name [String] - the name of the card.
-- parent [Deck, Hand, or Table instance, Boolean] - where the card is. If not specified, defaults to `false`.
-- other [Object]
+- `name` [`String`] - the name of the card.
+- `parent` [`Deck`, `Hand`, or `Table instance`, `Boolean`] - where the card is. If not specified, defaults to `false`.
+- `other` [`Object`]
     - `discarded` [`Boolean`] - whether or not the card has been discarded. Defaults to `false`.
     - `removed` [`Boolean`] - whether or not the card has been removed. Defaults to `false`.
     - `suit` [`String`, `Number`, or `Boolean`] - the suit of the card. Defaults to `false`.
@@ -328,11 +328,11 @@ Create a standard deck.
 
 **Parameters**
 
-- `that` (`Deck instance`) - The parent deck for the cards.
+- `that` [`Deck instance`] - The parent deck for the cards.
 
 **Returns**
 
-- `deck` (`Array of [Card instances, Other]`) - An array of cards.
+- `deck` [`Array of [Card instances, Other]`] - An array of cards.
 
 **Examples**
 
@@ -371,7 +371,7 @@ Shuffle cards into the deck.
 
 **Parameters**
 
-- `cards` [`Array of [Card instances, Other], Card instance`] - the card(s) to be shuffled into the deck.
+- `cards` [`Array of [Card instances, Other]`, `Card instance`] - the card(s) to be shuffled into the deck.
 
 **Returns**
 
@@ -397,7 +397,7 @@ Return cards from the top of the deck.
 
 **Returns**
 
-- `drawnCards` [Array of [Card instances, Other]] - the drawn cards.
+- `drawnCards` [`Array of [Card instances, Other]`] - the drawn cards.
 
 **Example**
 
@@ -433,7 +433,7 @@ Discard cards from the deck.
 
 **Parameters**
 
-- `cards` [Array of [Card instances, Other]] - the cards to be discarded.
+- `cards` [`Array of [Card instances, Other]`] - the cards to be discarded.
 
 **Returns**
 
