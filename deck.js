@@ -38,7 +38,7 @@ class Game {
             this.primaryDeck = Game.create("deck", this, deck)
             return this.primaryDeck
         } else {
-            return Game.create("deck", this)
+            return Game.create("deck", this, deck)
         }
     }
     newStandardDeck () {
@@ -99,7 +99,7 @@ class Card { // later
 }
 
 class Deck {
-    constructor(type) {
+    constructor(type = "custom") {
         this.type = type
         this.deck = []
         if(type == "custom") {
@@ -248,15 +248,6 @@ class Hand {
     constructor() {
         this.cards = []
     }
-    draw(deck, times) {
-        let drawnCards = deck.draw(times)
-        let that = this
-        drawnCards.forEach(function (card) {
-            card.move(that)
-        })
-        this.cards = this.cards.concat(drawnCards)
-        return drawnCards
-    }
     static remove(card, that) {
         that.cards.remove(card) // we want the instance of Hand's cards, not the class of Hand's cards, hence "that"
     }
@@ -266,6 +257,15 @@ class Hand {
             chosenCards.push(that.cards.shift())
         }
         return chosenCards
+    }
+    draw(deck, times) {
+        let drawnCards = deck.draw(times)
+        let that = this
+        drawnCards.forEach(function (card) {
+            card.move(that)
+        })
+        this.cards = this.cards.concat(drawnCards)
+        return drawnCards
     }
     discard(deck, cards = 1) {
         let that = this // forEaches don't play well with this apparently
